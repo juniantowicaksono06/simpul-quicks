@@ -3,8 +3,97 @@ html, body {
   width: 100%;
 }
 
-.quicks-dark {
+.lato-regular {
+  font-family: 'Lato', sans-serif;
+}
+
+.font-small {
+  font-size: 12px;
+}
+
+.font-medium {
+  font-size: 14px;
+}
+
+.font-large {
+  font-size: 16px;
+}
+
+.lato-bold {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}
+
+.colour-front-blue {
+  color: #2F80ED;
+}
+
+.colour-front-dark-gray {
+  color: #4F4F4F;
+}
+
+.colour-front-gray {
+  color: #828282;
+}
+
+.colour-front-light-gray {
+  color: #E0E0E0;
+}
+
+.colour-front-orange {
+  color: #F8B76B;
+}
+
+.colour-front-purple {
+  color: #8785FF;
+}
+
+.colour-front-red {
+  color: #EB5757;
+}
+
+.colour-front-yellow {
+  color: #F2C94C;
+}
+
+.colour-back-blue {
+  background-color: #2F80ED !important;
+}
+
+.colour-back-orange {
+  background-color: #F8B76B !important;
+}
+
+.colour-back-purple {
+  background-color: #8785FF !important;
+}
+
+.colour-back-red {
+  background-color: #EB5757 !important;
+}
+
+.colour-back-yellow {
+  background-color: #F2C94C !important;
+}
+
+.colour-back-dark-gray {
+  background-color: #4F4F4F !important;
+}
+
+.colour-back-gray {
+  background-color: #828282 !important;
+}
+
+.colour-back-light-gray {
+  background-color: #E0E0E0 !important;
+}
+
+.colour-back-extra-dark {
   background-color: #333333 !important;
+}
+
+.colour-back-light {
+  background-color: #F2F2F2 !important;
 }
 
 .quicks-input-dark {
@@ -36,33 +125,17 @@ input {
   min-width: 73.6px;
 }
 
-#selectedButton.btn-inbox {
-  background-color: rgb(135,133,255) !important;
-  color: #FFFFFF;
-}
-
-#selectedButton.btn-task {
-  background-color: rgb(248,183,107) !important;
-  color: #FFFFFF;
-}
-
-#mainMenuButtonContainer  #selectedButton {
-  background-color: rgb(47,128,237);
-}
-
 
 #mainMenuButtonContainer  #selectedButton:hover {
   background-color: rgb(71, 141, 232);
 }
 
 #btnInbox {
-  background-color: rgb(242,242,242);
   min-width: 48px;
   min-height: 48px;
 }
 
 #btnTask {
-  background-color: rgb(242,242,242);
   min-width: 48px;
   min-height: 48px;
 }
@@ -140,4 +213,15 @@ div.ellipse-behind.hidden {
     opacity: 0;
     display: none;
   }
+}
+
+.quicks-spinner {
+  /* rgb(248,248,248) */
+  border-right-color: rgb(248,248,248) !important;
+  border-bottom-color: rgb(248,248,248) !important;
+  border-left-color: rgb(196,196,196) !important;
+  border-top-color: rgb(196,196,196) !important;
+  width: 5rem !important;
+  height: 5rem !important;
+  font-size: 40px;
 }
