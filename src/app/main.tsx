@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react'
-import Popup from './components/popup'
+import Popup from './components/Popup'
 import { useDispatch } from "react-redux"
 import { setSelectedChat } from "./state/app"
 
