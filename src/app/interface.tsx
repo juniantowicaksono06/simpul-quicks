@@ -40,4 +40,8 @@ interface SelectedChats {
     chats: Chats[]
 }
 
-export type {ListChatDataProps, PopupProps, ListChatProps, LoadingProps, SelectedChats, Chats}
+interface DatePickerProps {
+    dateValue?: string
+}
+
+export type {ListChatDataProps, PopupProps, ListChatProps, LoadingProps, SelectedChats, Chats, DatePickerProps}

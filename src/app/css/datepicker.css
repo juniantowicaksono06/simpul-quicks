@@ -1,0 +1,42 @@
+.quicks-datepicker-container {
+    width: 250px;
+    height: auto;
+    position: absolute;
+    left: 240px;
+    top: 8px;
+    z-index: 999;
+}
+
+div.quicks-datepicker-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+}
+
+div.quicks-datepicker-container.show {
+    display: block;
+}
+
+div.quicks-datepicker-container.hide {
+    display: none;
+}
+
+div.quicks-datepicker-item {
+    border-radius: 50%;
+}
+
+div.quicks-datepicker-item.selected {
+    border: 1px solid #2F80ED;
+}
+
+div.quicks-datepicker-item:hover {
+    background-color: #2F80ED;
+    color: #FFFFFF;
+    cursor:pointer;
+}
+
+.quicks-datepicker-input {
+    width: 200px !important;
+    flex: none !important;
+    border-right: none;
+}
