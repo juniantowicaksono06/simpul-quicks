@@ -1,0 +1,155 @@
+#Conversation {
+    width: 100%;
+    height: 100%;
+}
+
+#ConversationTopBar {
+    height: 60px;
+    margin: 0;
+}
+
+#ConversationTopBar > div {
+    padding: 0px 32px;
+}
+
+#ConversationTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 500px;
+}
+
+#ConversationContent {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    padding: 10px 32px;
+}
+
+#ConversationContent .conversation-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#ConversationContent .conversation-right .box, #ConversationContent .conversation-left .box {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#ConversationContent .conversation-left {
+    display: flex;
+    max-width: 100%;
+}
+
+#ConversationContent .conversation-right .conversation-item {
+    /* flex: 1;
+    order: 1;  */
+    max-width: 400px;
+}
+
+#ConversationContent .conversation-left .conversation-item {
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.hr-with-text {
+    position: relative;
+}
+
+.hr-with-text hr {
+    border: 1px solid black;
+}
+
+.hr-indicator {
+    position: absolute;
+    top: -7px;
+    padding: 0 10px;
+}
+
+
+#ConversationInput {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 5px 20px;
+    gap: 20px;
+}
+
+#InputMessage {
+    padding: 5px 20px;
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    font-size: 13px;
+    
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#ConversationContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+#ConversationContent::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,0);
+}
+
+#ConversationContent::-webkit-scrollbar-thumb {
+    background-color: #8D8D8D; /* color of the thumb */
+    border-radius: 10px;
+}
+.conversation-right .conversation-option {
+    position: absolute;
+    left: -30px;
+    top: 30px;
+    z-index: 9;
+    min-width: 100px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.conversation-left .conversation-option  {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    z-index: 9;
+    min-width: 100px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.conversation-right .conversation-option > h6, .conversation-left .conversation-option > h6 {
+    padding: 10px 10px;
+}
+
+.conversation-right .conversation-option.show, .conversation-left .conversation-option.show {
+    display: block;
+} 
+
+.conversation-right .conversation-option.hide, .conversation-left .conversation-option.hide {
+    display: none;
+} 
+
+
+
+#NewMessageNotif {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+}
+
+
+#MessageConnect {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+#MessageConnect > div{
+    padding: 10px;
+}
