@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { SelectedChats , Chats, AppState } from "../../interface"
-import { setSelectedChat } from "../../state/app"
+import { setSelectedChat } from "@/app/state/app"
 import { RootState } from "@/app/store/store"
 import "../../css/conversation.css"
 import { useEffect, useState } from "react"
