@@ -1,20 +1,21 @@
 import { useDispatch, useSelector } from "react-redux"
-import { SelectedChats , Chats } from "../../interface"
+import { SelectedChats , Chats, AppState } from "../../interface"
 import { setSelectedChat } from "../../state/app"
+import { RootState } from "@/app/store/store"
 import "../../css/conversation.css"
 import { useEffect, useState } from "react"
 import React from 'react'
 import Loading from "../global/Loading"
 
 const Conversation = () => {
-    const selectedChat: SelectedChats = useSelector((state) => state.app.selectedChat)
+    const selectedChat: Partial<SelectedChats> = useSelector<RootState, Partial<SelectedChats>>((state) => state.app.selectedChat)
     const [containerContentHeight, setContainerContentHeight] = useState(0)
     const [isReachUnread, setIsReachUnread] = useState(false)
     const [optionOpened, setOptionOpened] = useState(-1)
     var unreadMessage: boolean = false
     const actionGoToUnread = () => {
         var element = document.querySelector("#ConversationContent")
-        element.scrollTop = document.querySelector("#NewMessageSection").getBoundingClientRect()['y'] - (element.scrollHeight + 80)
+        element!.scrollTop = document.querySelector("#NewMessageSection")!.getBoundingClientRect()['y'] - (element!.scrollHeight + 80)
     }
     const actionOpenOption = (index: number) => {
         if(index == optionOpened) {
@@ -25,13 +26,13 @@ const Conversation = () => {
         }
     }
     useEffect(() => {
-        setContainerContentHeight(document.querySelector("#Popup").clientHeight - document.querySelector("#ConversationTopBar").clientHeight - document.querySelector("#ConversationInput").clientHeight - 10)
+        setContainerContentHeight(document.querySelector("#Popup")!.clientHeight - document.querySelector("#ConversationTopBar")!.clientHeight - document.querySelector("#ConversationInput")!.clientHeight - 10)
         if(unreadMessage) {
             var element = document.querySelector("#ConversationContent")
-            setIsReachUnread(document.querySelector("#NewMessageSection").getBoundingClientRect()['y'] - (element.scrollHeight + 80) < element.scrollTop)
+            setIsReachUnread(document.querySelector("#NewMessageSection")!.getBoundingClientRect()['y'] - (element!.scrollHeight + 80) < element!.scrollTop)
             document.querySelector("#ConversationContent")?.addEventListener("scroll", function() {
                 var element = document.querySelector("#ConversationContent")
-                setIsReachUnread(document.querySelector("#NewMessageSection").getBoundingClientRect()['y'] - (element.scrollHeight + 80) < element.scrollTop)
+                setIsReachUnread(document.querySelector("#NewMessageSection")!.getBoundingClientRect()['y'] - (element!.scrollHeight + 80) < element!.scrollTop)
             })
         }
     }, [unreadMessage])
@@ -69,7 +70,7 @@ const Conversation = () => {
                 maxHeight: `${containerContentHeight}px`
             }}>
                 {
-                    selectedChat['chats'].map((chats: Chats, index) => {
+                    selectedChat['chats']!.map((chats: Chats, index) => {
                         const dateObj: Date = new Date(chats['date'])
                         let previousDateObj: Date | null = null
                         const months: Array<string> = [
@@ -80,12 +81,12 @@ const Conversation = () => {
                         let isNewDate: boolean = false
                         let isUnread: boolean = false
                         if(index > 0) {
-                            let prevChatIsUnread = selectedChat['chats'][index - 1]['status']
+                            let prevChatIsUnread = selectedChat['chats']![index - 1]['status']
                             if(prevChatIsUnread == 'READ' && chats['status'] == 'UNREAD') {
                                 isUnread = true
                                 unreadMessage = true
                             }
-                            previousDateObj = new Date(selectedChat['chats'][index - 1]['date'])
+                            previousDateObj = new Date(selectedChat['chats']![index - 1]['date'])
                             previousDate = `${previousDateObj.getFullYear()}-${previousDateObj.getMonth()}-${previousDateObj.getDate()}`
                             if(currentDate != previousDate) {
                                 isNewDate = true

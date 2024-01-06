@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, ChangeEvent } from "react"
 import { ListChatDataProps, PopupProps, SelectedChats } from "../../interface"
 import Conversation from "./Conversation"
 import Loading from '../global/Loading'
@@ -7,10 +7,11 @@ import ListChat from "./ListChat"
 
 
 import { showLoading, hideLoading } from "../../state/app"
+import { RootState } from "@/app/store/store"
 
 const Chat = () => {
-    const isLoading: boolean = useSelector((state) => state.app.loading)
-    const selectedChat: SelectedChats = useSelector((state) => state.app.selectedChat)
+    const isLoading: boolean = useSelector<RootState, boolean>((state) => state.app.loading)
+    const selectedChat: Partial<SelectedChats> = useSelector<RootState, Partial<SelectedChats>>((state) => state.app.selectedChat)
     const dispatch = useDispatch()
     const [chatData, setChatData] = useState([])
     const [allChat, setAllChat] = useState([])
@@ -44,7 +45,7 @@ const Chat = () => {
                 Object.keys(selectedChat).length == 0 ? 
                 <div id="PopupTopbar">
                     <div className="input-group">
-                        <input type="text" onChange={(e: Event) => {
+                        <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => {
                             if(allChat.length == 0) return
                             const searchValue: string = e.target.value
                             actionFilterChat(searchValue)

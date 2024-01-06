@@ -6,8 +6,8 @@ import { DatePickerProps } from "@/app/interface"
 const DatePicker = (props: DatePickerProps) => {
     const [dateObj, setDateObj] = useState(new Date())
     const [isDatepickerOpen, setIsDatepickerOpen] = useState(false)
-    const [dateList, setDateList] = useState([])
-    const [datePickerValue, setDatePickerValue] = useState<string | undefined>("")
+    const [dateList, setDateList] = useState<Array<number | null>>([])
+    const [datePickerValue, setDatePickerValue] = useState<string>("")
 
     const prependZero = (num: number) => {
         return num < 10 ? `0${num}` : num
@@ -37,17 +37,17 @@ const DatePicker = (props: DatePickerProps) => {
 
     const getMaxDate = (year: number, month: number) => {
         const firstDayOfMonth = new Date(year, month, 1);
-        const lastDayOfCurrentMonth = new Date(firstDayOfMonth - 1);
+        const lastDayOfCurrentMonth = new Date(firstDayOfMonth.getTime() - 1);
         const maxDate = lastDayOfCurrentMonth.getDate();
         return maxDate;
     }
 
-    const getListDate = (year: number, month: number): Array<string | null> => {
+    const getListDate = (year: number, month: number): Array<number | null> => {
         const firstDay: string = getFirstDayName(year, month)
         const maxDate = getMaxDate(year, month)
         const dayNames: Array<string> = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         const firstEmptyDate: number = dayNames.findIndex(value => value === firstDay)
-        const list = Array.from({length : firstEmptyDate}, value => null)
+        const list: Array<number | null> = Array.from({length : firstEmptyDate}, value => null)
         list.push(...Array.from({length: maxDate}, (value, index) => index + 1))
         return list
     }
@@ -72,20 +72,21 @@ const DatePicker = (props: DatePickerProps) => {
     }
 
     const convertDateString = (inputDateString: string) => {
-        const parts = inputDateString.split('/');
+        const parts = inputDateString!.split('/');
         const convertedDateString = `${parts[1]}/${parts[0]}/${parts[2]}`;
         return convertedDateString
     }
 
     interface DatePickerRef {
-        ref1: React.MutableRefObject<HTMLElement | null>;
-        ref2: React.MutableRefObject<HTMLElement | null>;
-        ref3: React.MutableRefObject<HTMLElement | null>;
+        ref1: React.MutableRefObject<HTMLInputElement | null>;
+        ref2: React.MutableRefObject<HTMLDivElement | null>;
+        ref3: React.MutableRefObject<HTMLDivElement | null>;
     }
+
     const datePickerRef: DatePickerRef = {
-        ref1: useRef<HTMLElement | null>(null),
-        ref2: useRef<HTMLElement | null>(null),
-        ref3: useRef<HTMLElement | null>(null),
+        ref1: useRef(null),
+        ref2: useRef(null),
+        ref3: useRef(null),
     }
 
     const dateRef: Array<object> = []
@@ -107,7 +108,7 @@ const DatePicker = (props: DatePickerProps) => {
 
     const actionPreviousMonth = () => {
         const tmpDateObj = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
-        const newDateObj = new Date(tmpDateObj - 1);
+        const newDateObj = new Date(tmpDateObj.getTime() - 1);
         setDateObj(newDateObj)
     }
 
@@ -121,7 +122,6 @@ const DatePicker = (props: DatePickerProps) => {
     }
 
     const actionSetDate = (date: number) => {
-        console.log(`${prependZero(date)}/${prependZero(dateObj.getMonth() + 1)}/${dateObj.getFullYear()}`)
         setDatePickerValue(`${prependZero(date)}/${prependZero(dateObj.getMonth() + 1)}/${dateObj.getFullYear()}`)
         setIsDatepickerOpen(false)
     }
@@ -133,10 +133,10 @@ const DatePicker = (props: DatePickerProps) => {
                 setDateObj(new Date(convertDateString(props.dateValue)))
             }
         }
-        document.addEventListener("click", function(event: Event) {
+        document.addEventListener("click", function(event: MouseEvent) {
             const refKeys: Array<string> = Object.keys(datePickerRef)
             if(Array.from({ length: refKeys.length}, (value, index: number) => {
-                return datePickerRef[refKeys[index]].current && !datePickerRef[refKeys[index]].current.contains(event.target)
+                return datePickerRef[refKeys[index] as keyof DatePickerRef].current && !datePickerRef[refKeys[index] as keyof DatePickerRef].current?.contains(event.target as Node)
             }).every(value => value === true)) {
                 setIsDatepickerOpen(false)
             }
@@ -168,10 +168,12 @@ const DatePicker = (props: DatePickerProps) => {
                         }, 100)
                     }} onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         setDatePickerValue(e.target.value)
-                    }} onBlur={(e: FocusEvent<HTMLInputElement>) => {
-                        actionDateInputBlur(datePickerValue)
-                        if(!datePickerRef['ref3'].current?.contains(e.relatedTarget)) {
-                            setIsDatepickerOpen(false)
+                    }} onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
+                        actionDateInputBlur(datePickerValue);
+                        if (
+                            !datePickerRef['ref3'].current?.contains(e.relatedTarget as Node)
+                        ) {
+                            setIsDatepickerOpen(false);
                         }
                     }} className="lato-regular form-control font-small quicks-datepicker-input" placeholder="Set Date" ref={datePickerRef['ref1']} onClick={() => {
                         actionOpenDatePicker("input")

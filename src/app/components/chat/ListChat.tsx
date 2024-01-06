@@ -34,7 +34,7 @@ const ListChat: React.FC<ListChatProps> = (props) => {
                         chatDate = formattedDate + ' ' + formattedTime;
                     }
                     else {
-                        var options = { 
+                        var options: Intl.DateTimeFormatOptions = { 
                             year: 'numeric', 
                             month: 'long', 
                             day: 'numeric', 

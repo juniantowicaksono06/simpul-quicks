@@ -37,11 +37,16 @@ interface SelectedChats {
     id: number,
     title: string,
     particants?: number,
-    chats: Chats[]
+    chats: Chats[],
 }
 
 interface DatePickerProps {
-    dateValue?: string
+    dateValue: Partial<string>
 }
 
-export type {ListChatDataProps, PopupProps, ListChatProps, LoadingProps, SelectedChats, Chats, DatePickerProps}
+interface AppState {
+    selectedChat: Partial<SelectedChats>,
+    loading: boolean
+}
+
+export type {ListChatDataProps, PopupProps, ListChatProps, LoadingProps, SelectedChats, Chats, DatePickerProps, AppState}
