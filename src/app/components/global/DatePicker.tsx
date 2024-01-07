@@ -81,12 +81,14 @@ const DatePicker = (props: DatePickerProps) => {
         ref1: React.MutableRefObject<HTMLInputElement | null>;
         ref2: React.MutableRefObject<HTMLDivElement | null>;
         ref3: React.MutableRefObject<HTMLDivElement | null>;
+        ref4: React.MutableRefObject<HTMLButtonElement | null>;
     }
 
     const datePickerRef: DatePickerRef = {
         ref1: useRef(null),
         ref2: useRef(null),
         ref3: useRef(null),
+        ref4: useRef(null)
     }
 
     const dateRef: Array<object> = []
@@ -156,13 +158,19 @@ const DatePicker = (props: DatePickerProps) => {
     return (
         <>  
             <div className="d-flex align-items-center">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {
-                        datePickerValue && isValidDate(datePickerValue) ? <path fillRule="evenodd" clipRule="evenodd" d="M8.99199 0.666626C4.39199 0.666626 0.666992 4.39996 0.666992 8.99996C0.666992 13.6 4.39199 17.3333 8.99199 17.3333C13.6003 17.3333 17.3337 13.6 17.3337 8.99996C17.3337 4.39996 13.6003 0.666626 8.99199 0.666626ZM9.00049 15.6666C5.31715 15.6666 2.33382 12.6833 2.33382 8.99996C2.33382 5.31662 5.31715 2.33329 9.00049 2.33329C12.6838 2.33329 15.6672 5.31662 15.6672 8.99996C15.6672 12.6833 12.6838 15.6666 9.00049 15.6666ZM8.16699 4.83329H9.41699V9.20829L13.167 11.4333L12.542 12.4583L8.16699 9.83329V4.83329Z" fill="#2F80ED"/> : <path fillRule="evenodd" clipRule="evenodd" d="M8.99187 0.666687C4.39187 0.666687 0.66687 4.40002 0.66687 9.00002C0.66687 13.6 4.39187 17.3334 8.99187 17.3334C13.6002 17.3334 17.3335 13.6 17.3335 9.00002C17.3335 4.40002 13.6002 0.666687 8.99187 0.666687ZM9.00037 15.6667C5.31703 15.6667 2.3337 12.6834 2.3337 9.00002C2.3337 5.31669 5.31703 2.33335 9.00037 2.33335C12.6837 2.33335 15.667 5.31669 15.667 9.00002C15.667 12.6834 12.6837 15.6667 9.00037 15.6667ZM8.16687 4.83335H9.41687V9.20835L13.1669 11.4334L12.5419 12.4584L8.16687 9.83335V4.83335Z" fill="#4F4F4F"/>
-                    }
-                </svg>
+                <button ref={datePickerRef['ref4']} onClick={() => {
+                    datePickerRef['ref1'].current?.focus()
+                    setIsDatepickerOpen(!isDatepickerOpen)
+                }} className="quicks-button quicks-ms-n4">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        {
+                            datePickerValue && isValidDate(datePickerValue) ? <path fillRule="evenodd" clipRule="evenodd" d="M8.99199 0.666626C4.39199 0.666626 0.666992 4.39996 0.666992 8.99996C0.666992 13.6 4.39199 17.3333 8.99199 17.3333C13.6003 17.3333 17.3337 13.6 17.3337 8.99996C17.3337 4.39996 13.6003 0.666626 8.99199 0.666626ZM9.00049 15.6666C5.31715 15.6666 2.33382 12.6833 2.33382 8.99996C2.33382 5.31662 5.31715 2.33329 9.00049 2.33329C12.6838 2.33329 15.6672 5.31662 15.6672 8.99996C15.6672 12.6833 12.6838 15.6666 9.00049 15.6666ZM8.16699 4.83329H9.41699V9.20829L13.167 11.4333L12.542 12.4583L8.16699 9.83329V4.83329Z" fill="#2F80ED"/> : <path fillRule="evenodd" clipRule="evenodd" d="M8.99187 0.666687C4.39187 0.666687 0.66687 4.40002 0.66687 9.00002C0.66687 13.6 4.39187 17.3334 8.99187 17.3334C13.6002 17.3334 17.3335 13.6 17.3335 9.00002C17.3335 4.40002 13.6002 0.666687 8.99187 0.666687ZM9.00037 15.6667C5.31703 15.6667 2.3337 12.6834 2.3337 9.00002C2.3337 5.31669 5.31703 2.33335 9.00037 2.33335C12.6837 2.33335 15.667 5.31669 15.667 9.00002C15.667 12.6834 12.6837 15.6667 9.00037 15.6667ZM8.16687 4.83335H9.41687V9.20835L13.1669 11.4334L12.5419 12.4584L8.16687 9.83335V4.83335Z" fill="#4F4F4F"/>
+                        }
+                    </svg>
+                </button>
                 <div className="input-group ms-3">
                     <input type="text" value={datePickerValue} maxLength={10} onFocus={() => {
+                        datePickerRef['ref1'].current?.setSelectionRange(0, datePickerValue!.length)
                         setTimeout(() => {
                             setIsDatepickerOpen(true)
                         }, 100)
@@ -196,15 +204,15 @@ const DatePicker = (props: DatePickerProps) => {
                     e.stopPropagation()
                 }} tabIndex={1}>
                     <div className="d-flex justify-content-between align-items-center">
-                        <button className="btn" onClick={actionPreviousMonth}>
+                        <button className="quicks-button" onClick={actionPreviousMonth}>
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.91703 0.935049L5.02703 0.0500488L0.0820312 5.00005L5.03203 9.95005L5.91703 9.06505L1.85203 5.00005L5.91703 0.935049Z" fill="black" fillOpacity="0.54"/>
                             </svg>
                         </button>
-                        <button className="btn">
+                        <button className="quicks-button">
                             <h6 className="lato-regular font-medium mb-0">{ monthNames[dateObj.getMonth()] } { dateObj.getFullYear() }</h6>
                         </button>
-                        <button className="btn" onClick={actionChangeNextMonth}>
+                        <button className="quicks-button" onClick={actionChangeNextMonth}>
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0.0820313 9.06505L0.967031 9.95005L5.91703 5.00005L0.967031 0.0500488L0.0820313 0.935049L4.14703 5.00005L0.0820312 9.06505H0.0820313Z" fill="black" fillOpacity="0.54"/>
                             </svg>

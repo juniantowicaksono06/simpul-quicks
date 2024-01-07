@@ -1,15 +1,22 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { AppState, SelectedChats } from '../interface'
+import { AppState, SelectedChats, ReplyTo } from '../interface'
 
 export const appSlice = createSlice({
     name: "app",
     initialState: {
         selectedChat: {},
-        loading: false
+        loading: false,
+        reply: {
+            to: "",
+            text: ""
+        }
     } as AppState,
     reducers: {
-        setSelectedChat: (state, action: PayloadAction<Partial<SelectedChats>>) => {
+        setSelectedChat: (state, action: PayloadAction<SelectedChats>) => {
             state.selectedChat = action.payload
+        },
+        setReply: (state, action: PayloadAction<Partial<ReplyTo>>) => {
+            state.reply = action.payload
         },
         showLoading: (state) =>{
             state.loading = true
@@ -20,5 +27,5 @@ export const appSlice = createSlice({
     }
 })
 
-export const { setSelectedChat, showLoading, hideLoading } = appSlice.actions
+export const { setSelectedChat, showLoading, hideLoading, setReply } = appSlice.actions
 export default appSlice.reducer

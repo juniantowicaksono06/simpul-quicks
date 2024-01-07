@@ -35,10 +35,11 @@
     margin-top: 10px;
 }
 
-.task-description {
+.task-description, .task-label {
     display: flex;
     margin-top: 10px;
 }
+
 .task-description textarea:focus {
     border: 1px solid #828282;
     overflow: hidden;
@@ -51,7 +52,7 @@
     border-radius: 5px;
     overflow: hidden;
     border: 1px solid transparent;
-    overflow: auto;
+    overflow: none;
     outline: none;
 
     -webkit-box-shadow: none;
@@ -80,10 +81,83 @@
     min-width: 250px;
 }
 
-.task-option.show, .task-selection.show {
+.task-option.show, .task-selection.show, .task-label-option.show {
     display: block;
 }
 
-.task-option.hide, .task-selection.hide {
+.task-option.hide, .task-selection.hide, .task-label-option.hide {
     display: none;
+}
+
+.task-label {
+    background-color: #F9F9F9;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.task-control {
+    margin-top: 4px;
+}
+
+.task-collapse-button {
+    margin-top: -8px;
+}
+
+.task-option-button {
+    margin-top: -8px;
+}
+
+.task-label-item.important-asap {
+    background-color: #E5F1FF;
+}
+
+.task-label-item.offline-meeting {
+    background-color: #FDCFA4;
+}
+
+.task-label-item.virtual-meeting {
+    background-color: #F9E9C3;
+}
+
+.task-label-item.asap {
+    background-color: #AFEBD8;
+}
+
+.task-label-item.client-related {
+    background-color: #CBF1C2;
+}
+
+.task-label-item.self-task {
+    background-color: #CFCEF9;
+}
+
+.task-label-item.appointments {
+    background-color: #F9E0FD;
+}
+
+.task-label-item.court-related {
+    background-color: #9DD0ED;
+}
+
+.task-label-list {
+    padding: 5px 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.task-label-item {
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    /* flex: 1 0 15%; */
+    box-sizing: border-box;
+}
+
+.task-label-option {
+    position: absolute;
+    width: 400px;
+    z-index: 99;
 }

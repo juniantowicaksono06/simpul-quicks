@@ -1,7 +1,8 @@
 #Popup {
-    min-width: 700px;
+    min-width: 750px;
+    max-width: 750px;
     min-height: 500px;
-    height: 600px;
+    height: 500px;
     position: fixed;
     background-color: #FFFFFF;
     bottom : 100px;

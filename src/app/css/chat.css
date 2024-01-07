@@ -81,6 +81,10 @@
     max-width: 400px;
 }
 
+.conversation-right .conversation-item .conversation-me {
+    min-width: 300px;
+}
+
 #ConversationContent .conversation-left .conversation-item {
     min-width: 300px;
     max-width: 500px;
@@ -108,6 +112,8 @@
     width: 100%;
     padding: 5px 20px;
     gap: 20px;
+    position: absolute;
+    bottom: 0px;
 }
 
 #InputMessage {
@@ -122,18 +128,6 @@
     border-radius: 5px;
 }
 
-#ConversationContent::-webkit-scrollbar {
-    width: 8px;
-}
-
-#ConversationContent::-webkit-scrollbar-track {
-    background-color: rgba(0,0,0,0);
-}
-
-#ConversationContent::-webkit-scrollbar-thumb {
-    background-color: #8D8D8D; /* color of the thumb */
-    border-radius: 10px;
-}
 .conversation-right .conversation-option {
     position: absolute;
     left: -30px;
@@ -168,22 +162,50 @@
     display: none;
 } 
 
-
-
 #NewMessageNotif {
     position: absolute;
-    bottom: 60px;
+    /* bottom: 120px; */
     width: 100%;
+    z-index: 999;
+}
+
+#NewMessageNotif > div {
+    padding: 10px;
 }
 
 
 #MessageConnect {
     position: absolute;
-    bottom: 60px;
+    /* bottom: 60px; */
     width: 100%;
     padding: 10px 20px;
 }
 
 #MessageConnect > div{
     padding: 10px;
+}
+
+#ReplyTo {
+    margin-top: -80px;
+    padding: 10px 20px;
+    position: relative;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    z-index: 99999;
+}
+
+#CloseReply {
+    position: absolute;
+    right: 5px;
+    top: -2px;
+}
+
+.reply-content {
+    padding: 5px 10px;
 }

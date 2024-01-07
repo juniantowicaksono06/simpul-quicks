@@ -15,21 +15,6 @@ const Task = () => {
     const [taskData, setTaskData] = useState<Array<TaskCardProps>>([])
     const isLoading: boolean = useSelector<RootState, boolean>((state) => state.app.loading)
     const dispatch = useDispatch()
-    const data1: TaskCardProps = {
-        id: 1,
-        date: "07/01/2024",
-        title: "Set up documentation report for several Cases : Case 145443, Case 192829 and Case 182203",
-        description: "Hello World\nHow are you?",
-        taskStatus: "DONE",
-        daysLeft: 2
-    }
-    
-    const data2: TaskCardProps = {
-        id: 2,
-        title: "Set up documentation report for several Cases : Case 145443, Case 192829 and Case 182203",
-        description: "Hello World\nHow are you?",
-        taskStatus: "NOT DONE"
-    }
 
     const optionRef = useRef<HTMLDivElement | null>(null)
     const optionContentRef = useRef<HTMLDivElement | null>(null)
@@ -41,9 +26,11 @@ const Task = () => {
     const actionChangeTask = (id: number, _taskName: string) => {
         setTaskId(id)
         setTaskName(_taskName)
+        setOptionOpened(false)
     }
 
     const fetchTaskData = async () => {
+        dispatch(showLoading())
         const response = await fetch(`${process.env.API_BASE_URL}/task-detail/${taskId}`)
         if(!response.ok) {
             alert("Ooops... something wrong!")
@@ -59,6 +46,7 @@ const Task = () => {
     useEffect(() => {
         dispatch(showLoading())
         setContainerContentHeight( document.querySelector('#Popup')!.clientHeight - taskTopbarRef.current!.clientHeight - 10)
+
 
         document.addEventListener("click", function(event: MouseEvent) {
             if((optionRef.current && !optionRef.current.contains(event.target as Node)) && (optionContentRef.current && !optionContentRef.current.contains(event.target as Node))) {
@@ -104,8 +92,8 @@ const Task = () => {
                                 </svg>
                                 :
                                 <svg width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.59795 0.912477L5.77295 4.72914L1.94795 0.912476L0.772949 2.08748L5.77295 7.08748L10.7729 2.08748L9.59795 0.912477Z" fill="#4F4F4F"/>
-                            </svg>
+                                    <path d="M9.59795 0.912477L5.77295 4.72914L1.94795 0.912476L0.772949 2.08748L5.77295 7.08748L10.7729 2.08748L9.59795 0.912477Z" fill="#4F4F4F"/>
+                                </svg>
                             }
                         </div>
                         <div ref={optionContentRef} className={optionOpened ? "task-selection show colour-back-white colour-border-gray" : "task-selection hide colour-back-white colour-border-gray"}>
@@ -113,7 +101,7 @@ const Task = () => {
                                 taskList.map((task: TaskList, index: number) => {
                                     return (
                                         <React.Fragment key={task['id']}>
-                                            <button className="btn lato-bold colour-front-black font-medium mb-0" onClick={() => {
+                                            <button className="quicks-button lato-bold colour-front-black font-medium mb-0 w-100 text-start" onClick={() => {
                                                 actionChangeTask(task['id'], task['taskName'])
                                             }}>
                                                 <span>{ task['taskName'] }</span>
@@ -128,7 +116,7 @@ const Task = () => {
                         </div>
                     </div>
                     <div className="">
-                        <button className="btn colour-back-blue colour-front-white">
+                        <button className="quicks-button colour-back-blue colour-front-white rounded">
                             New Task
                         </button>
                     </div>
@@ -141,11 +129,11 @@ const Task = () => {
                     </div>
                 : 
                 <>
-                    <div ref={taskContainerRef} id="TaskContainer" style={{
-                        maxHeight: `${containerContentHeight}px`
+                    <div ref={taskContainerRef} className="quicks-scrollbar" id="TaskContainer" style={{
+                        height: `${containerContentHeight}px`
                     }}>
                         {
-                            taskData.map((cardData: TaskCardProps) => <TaskCard {...cardData} key={cardData['id']} />)
+                            taskData.map((cardData: TaskCardProps, index: number) => <TaskCard {...cardData} key={cardData['id']} separator={index < taskData.length - 1} />)
                         }
                     </div>
                 </>

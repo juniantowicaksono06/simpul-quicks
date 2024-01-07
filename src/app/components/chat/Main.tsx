@@ -10,7 +10,7 @@ import "@/app/css/chat.css"
 
 const Chat = () => {
     const isLoading: boolean = useSelector<RootState, boolean>((state) => state.app.loading)
-    const selectedChat: Partial<SelectedChats> = useSelector<RootState, Partial<SelectedChats>>((state) => state.app.selectedChat)
+    const selectedChat: SelectedChats = useSelector<RootState, SelectedChats>((state) => state.app.selectedChat)
     const dispatch = useDispatch()
     const [chatData, setChatData] = useState([])
     const [allChat, setAllChat] = useState([])
@@ -66,7 +66,7 @@ const Chat = () => {
                 chatData.length > 0 && !isLoading && Object.keys(selectedChat).length == 0 ? <ListChat data={chatData} /> : <></>
             }
             {
-                isLoading ? 
+                isLoading && Object.keys(selectedChat).length == 0 ? 
                     <div className="d-flex justify-content-center align-items-center h-100">
                         <Loading text="Loading Chats..." />
                     </div>

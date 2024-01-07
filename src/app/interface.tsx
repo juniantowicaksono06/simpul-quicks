@@ -30,29 +30,37 @@ interface Chats {
     text: string,
     date: string,
     from: string, 
-    status: "READ" | "UNREAD"
+    status: "READ" | "UNREAD",
+    reply?: string
 }
 
 interface SelectedChats {
-    id: number,
-    title: string,
+    id?: number,
+    title?: string,
     particants?: number,
-    chats: Chats[],
+    chats?: Chats[],
 }
 
 interface ConversationItem {
     from: string,
     times: string,
-    text: string
+    text: string,
+    reply?: string
 }
 
 interface DatePickerProps {
     dateValue?: Partial<string>
 }
 
+interface ReplyTo {
+    text: string,
+    to: string
+}
+
 interface AppState {
-    selectedChat: Partial<SelectedChats>,
-    loading: boolean
+    selectedChat: SelectedChats,
+    loading: boolean,
+    reply: Partial<ReplyTo>
 }
 
 interface DescriptionProps {
@@ -71,6 +79,12 @@ interface TaskCardProps {
     date?: string,
     daysLeft?: number,
     taskStatus: "DONE" | "NOT DONE"
+    separator: Partial<boolean>,
+    taskLabel: Partial<Array<string>>
 }
 
-export type {ListChatDataProps, PopupProps, ListChatProps, LoadingProps, SelectedChats, Chats, DatePickerProps, AppState, DescriptionProps, TaskCardProps, ConversationItem, TaskList}
+interface TaskLabelProps {
+    tasks: Array<string>
+}
+
+export type {ListChatDataProps, PopupProps, ListChatProps, LoadingProps, SelectedChats, Chats, DatePickerProps, AppState, DescriptionProps, TaskCardProps, ConversationItem, TaskList, TaskLabelProps, ReplyTo}
