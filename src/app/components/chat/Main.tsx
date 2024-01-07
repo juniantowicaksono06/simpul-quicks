@@ -1,13 +1,12 @@
 import { useState, useEffect, ChangeEvent } from "react"
-import { ListChatDataProps, PopupProps, SelectedChats } from "../../interface"
-import Conversation from "./Conversation"
-import Loading from '../global/Loading'
+import { ListChatDataProps, SelectedChats } from "@/app/interface"
+import Conversation from "@/app/components/chat/Conversation"
+import Loading from '@/app/components/global/Loading'
 import { useDispatch, useSelector } from "react-redux"
-import ListChat from "./ListChat"
-
-
-import { showLoading, hideLoading } from "../../state/app"
+import ListChat from "@/app/components/chat/ListChat"
+import { showLoading, hideLoading } from "@/app/state/app"
 import { RootState } from "@/app/store/store"
+import "@/app/css/chat.css"
 
 const Chat = () => {
     const isLoading: boolean = useSelector<RootState, boolean>((state) => state.app.loading)
@@ -43,14 +42,14 @@ const Chat = () => {
         <>
             {
                 Object.keys(selectedChat).length == 0 ? 
-                <div id="PopupTopbar">
+                <div id="ChatTopbar">
                     <div className="input-group">
                         <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => {
                             if(allChat.length == 0) return
                             const searchValue: string = e.target.value
                             actionFilterChat(searchValue)
                             setChatSearch(searchValue)
-                        }} className="" placeholder="Search" id="PopupSearchbar" />
+                        }} className="" placeholder="Search" id="ChatSearchbar" />
                         <div className="input-group-append">
                             <span className='input-group-text d-inline-block h-100 text-dark bg-white' id="PopupSearchIcon">
                                 <i className="fas fa-search fa-1x"></i>

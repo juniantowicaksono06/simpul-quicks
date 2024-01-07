@@ -1,32 +1,12 @@
 #Popup {
     min-width: 700px;
     min-height: 500px;
-    height: 500px;
+    height: 600px;
     position: fixed;
     background-color: #FFFFFF;
     bottom : 100px;
     right: 35px;
     border-radius: 5px;
-}
-
-#PopupTopbar {
-    padding: 24px 32px;
-    padding-bottom: 0;
-}
-
-#PopupTopbar #PopupSearchbar {
-    padding: 2px 50px;
-    position: relative;
-    flex: 1 1 auto;
-    width: 1%;
-    min-width: 0;
-    font-size: 13px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-right: none;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
 }
 
 #PopupSearchIcon {
@@ -75,25 +55,6 @@
 
 .chat-contact-name {
     font-weight: bolder;
-}
-
-.chat-separator {
-    margin-bottom: 0px;
-    margin-top: 22px;
-    border: 2px solid black;
-}
-
-.chat-card {
-    margin-left: 32px;
-    margin-right: 32px;
-    padding-top: 10px;
-    padding-bottom: 5px;
-}
-
-.chat-card:hover {
-    user-select: none;
-    cursor: default;
-    background-color: rgb(231, 231, 231);
 }
 
 .profile {

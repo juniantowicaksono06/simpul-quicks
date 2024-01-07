@@ -1,30 +1,23 @@
 import { useDispatch, useSelector } from "react-redux"
-import { SelectedChats , Chats, AppState } from "../../interface"
+import { SelectedChats , Chats, AppState } from "@/app/interface"
 import { setSelectedChat } from "@/app/state/app"
 import { RootState } from "@/app/store/store"
-import "../../css/conversation.css"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import React from 'react'
-import Loading from "../global/Loading"
+import Loading from "@/app/components/global/Loading"
+import ConversationItem from "./ConversationItem"
 
 const Conversation = () => {
     const selectedChat: Partial<SelectedChats> = useSelector<RootState, Partial<SelectedChats>>((state) => state.app.selectedChat)
     const [containerContentHeight, setContainerContentHeight] = useState(0)
-    const [isReachUnread, setIsReachUnread] = useState(false)
-    const [optionOpened, setOptionOpened] = useState(-1)
+    const [isReachUnread, setIsReachUnread] = useState<boolean>(false)
+    
     var unreadMessage: boolean = false
     const actionGoToUnread = () => {
-        var element = document.querySelector("#ConversationContent")
+        var element: Element | null = document.querySelector("#ConversationContent")
         element!.scrollTop = document.querySelector("#NewMessageSection")!.getBoundingClientRect()['y'] - (element!.scrollHeight + 80)
     }
-    const actionOpenOption = (index: number) => {
-        if(index == optionOpened) {
-            setOptionOpened(-1)
-        }
-        else {
-            setOptionOpened(index)
-        }
-    }
+
     useEffect(() => {
         setContainerContentHeight(document.querySelector("#Popup")!.clientHeight - document.querySelector("#ConversationTopBar")!.clientHeight - document.querySelector("#ConversationInput")!.clientHeight - 10)
         if(unreadMessage) {
@@ -136,75 +129,9 @@ const Conversation = () => {
                                     :
                                     <></>
                                 }
-                            {chats['from'] == "You" ?
-                                <div className="conversation-right mb-2" key={index}>
-                                    <div className="position-relative">
-                                        <button className="btn position-absolute" onClick={() => {
-                                            actionOpenOption(index)
-                                        }} style={{
-                                            top: "0",
-                                            left: "-40px"
-                                        }}>
-                                            <svg width="12" height="4" viewBox="0 0 12 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fillRule="evenodd" clipRule="evenodd" d="M2.00008 0.666664C1.26675 0.666664 0.666748 1.26666 0.666748 2C0.666748 2.73333 1.26675 3.33333 2.00008 3.33333C2.73341 3.33333 3.33342 2.73333 3.33342 2C3.33342 1.26666 2.73341 0.666664 2.00008 0.666664ZM10.0001 0.666664C9.26675 0.666664 8.66675 1.26666 8.66675 2C8.66675 2.73333 9.26675 3.33333 10.0001 3.33333C10.7334 3.33333 11.3334 2.73333 11.3334 2C11.3334 1.26666 10.7334 0.666664 10.0001 0.666664ZM4.66675 2C4.66675 1.26666 5.26675 0.666664 6.00008 0.666664C6.73341 0.666664 7.33341 1.26666 7.33341 2C7.33341 2.73333 6.73341 3.33333 6.00008 3.33333C5.26675 3.33333 4.66675 2.73333 4.66675 2Z" fill="#4F4F4F"/>
-                                            </svg>
-                                        </button>
-                                        <div className={optionOpened == index ? "conversation-option show colour-back-white colour-border-light-gray" : "conversation-option hide colour-back-white colour-border-light-gray"}>
-                                            <button className="btn lato-regular font-medium colour-front-blue mb-0">
-                                                <span>Edit</span>
-                                            </button>
-                                            <hr className="my-0" />
-                                            <button className="btn lato-regular font-medium colour-front-red mb-0">
-                                                <span>Delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="conversation-item lato-regular font-small">
-                                        <div>
-                                            <h6 className="lato-bold font-medium colour-front-purple text-end mb-0">{ chats['from'] }</h6>
-                                        </div>
-                                        <div className="d-flex justify-content-end">
-                                            <div className="box colour-back-light-purple colour-front-gray">
-                                                <h6 className="lato-regular font-medium mb-0">{chats['text']}</h6>
-                                                <p className="mb-0 font-small lato-regular">{times}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                :
-                                <div className="conversation-left mb-2" key={index}>
-                                    <div className="conversation-item lato-regular font-small">
-                                        <div>
-                                            <h6 className={chats['from'] == "Mary Hilda" ? "lato-bold font-medium colour-front-yellow text-start mb-0" : chats['from'] == "Obaidullah Amarkhil" ?  "lato-bold font-medium colour-front-green text-start mb-0" : "lato-bold font-medium colour-front-purple text-start mb-0"}>{ chats['from'] }</h6>
-                                        </div>
-                                        <div className="d-flex">
-                                            <div className={chats['from'] == "Mary Hilda" ? "box colour-back-light-yellow colour-front-gray" : chats['from'] == "Obaidullah Amarkhil" ? "box colour-back-light-green colour-front-gray" : "box colour-back-white2 colour-front-gray"}>
-                                                <h6 className="lato-regular font-medium mb-0">{ chats['text'] }</h6>
-                                                <p className="mb-0 font-small lato-regular">19:32</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="position-relative">
-                                        <button className="btn position-absolute" onClick={() => {
-                                            actionOpenOption(index)
-                                        }} style={{
-                                            top: "0"
-                                        }}>
-                                            <svg width="12" height="4" viewBox="0 0 12 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fillRule="evenodd" clipRule="evenodd" d="M2.00008 0.666664C1.26675 0.666664 0.666748 1.26666 0.666748 2C0.666748 2.73333 1.26675 3.33333 2.00008 3.33333C2.73341 3.33333 3.33342 2.73333 3.33342 2C3.33342 1.26666 2.73341 0.666664 2.00008 0.666664ZM10.0001 0.666664C9.26675 0.666664 8.66675 1.26666 8.66675 2C8.66675 2.73333 9.26675 3.33333 10.0001 3.33333C10.7334 3.33333 11.3334 2.73333 11.3334 2C11.3334 1.26666 10.7334 0.666664 10.0001 0.666664ZM4.66675 2C4.66675 1.26666 5.26675 0.666664 6.00008 0.666664C6.73341 0.666664 7.33341 1.26666 7.33341 2C7.33341 2.73333 6.73341 3.33333 6.00008 3.33333C5.26675 3.33333 4.66675 2.73333 4.66675 2Z" fill="#4F4F4F"/>
-                                            </svg>
-                                        </button>
-                                        <div className={optionOpened == index ? "conversation-option show colour-back-white colour-border-light-gray" : "conversation-option hide colour-back-white colour-border-light-gray"}>
-                                            <button className="btn lato-regular font-medium colour-front-blue mb-0">
-                                                <span>Share</span>
-                                            </button>
-                                            <hr className="my-0" />
-                                            <button className="btn lato-regular font-medium colour-front-blue mb-0">
-                                                <span>Reply</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>}
+                            {
+                                <ConversationItem from={chats['from']} times={times} text={chats['text']} key={index} />
+                            }
                             </React.Fragment> 
                         )   
                     })

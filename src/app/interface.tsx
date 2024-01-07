@@ -40,8 +40,14 @@ interface SelectedChats {
     chats: Chats[],
 }
 
+interface ConversationItem {
+    from: string,
+    times: string,
+    text: string
+}
+
 interface DatePickerProps {
-    dateValue: Partial<string>
+    dateValue?: Partial<string>
 }
 
 interface AppState {
@@ -49,4 +55,22 @@ interface AppState {
     loading: boolean
 }
 
-export type {ListChatDataProps, PopupProps, ListChatProps, LoadingProps, SelectedChats, Chats, DatePickerProps, AppState}
+interface DescriptionProps {
+    text?: string | undefined
+}
+
+interface TaskList {
+    id: number,
+    taskName: string
+}
+
+interface TaskCardProps {
+    id: number,
+    title: string,
+    description?: string,
+    date?: string,
+    daysLeft?: number,
+    taskStatus: "DONE" | "NOT DONE"
+}
+
+export type {ListChatDataProps, PopupProps, ListChatProps, LoadingProps, SelectedChats, Chats, DatePickerProps, AppState, DescriptionProps, TaskCardProps, ConversationItem, TaskList}

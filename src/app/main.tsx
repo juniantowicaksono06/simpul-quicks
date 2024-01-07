@@ -1,8 +1,8 @@
 
 import React, { useEffect, useState } from 'react'
-import Popup from './components/Popup'
+import Popup from '@/app/components/Popup'
 import { useDispatch } from "react-redux"
-import { setSelectedChat } from "./state/app"
+import { setSelectedChat } from "@/app/state/app"
 
 const Main = () => {
     const [buttonStatus, setButtonStatus] = useState(0)

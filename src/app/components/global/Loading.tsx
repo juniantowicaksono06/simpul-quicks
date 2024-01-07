@@ -1,4 +1,4 @@
-import { LoadingProps } from "../../interface"
+import { LoadingProps } from "@/app/interface"
 
 const Loading: React.FC<LoadingProps> = (props: LoadingProps) => {
     let sizeClass = "quicks-spinner-large"

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, ChangeEvent, FocusEventHandler } from "react"
-import "../../css/datepicker.css"
+import "@/app/css/datepicker.css"
 
 import { DatePickerProps } from "@/app/interface"
 
@@ -7,14 +7,13 @@ const DatePicker = (props: DatePickerProps) => {
     const [dateObj, setDateObj] = useState(new Date())
     const [isDatepickerOpen, setIsDatepickerOpen] = useState(false)
     const [dateList, setDateList] = useState<Array<number | null>>([])
-    const [datePickerValue, setDatePickerValue] = useState<string>("")
+    const [datePickerValue, setDatePickerValue] = useState<Partial<string>|undefined>("")
 
     const prependZero = (num: number) => {
         return num < 10 ? `0${num}` : num
     }
 
     const dayNames: Array<string> = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    // const [dateValue, setDateValue] = useState(`${prependZero(dateObj.getDay())}/${prependZero(dateObj.getMonth() + 1)}/${dateObj.getFullYear()}`)
     const monthNames: Array<string> = [
         "January",
         "February",
@@ -71,7 +70,8 @@ const DatePicker = (props: DatePickerProps) => {
         return false
     }
 
-    const convertDateString = (inputDateString: string) => {
+    const convertDateString = (inputDateString: string | undefined) => {
+        if(inputDateString === undefined) return ""
         const parts = inputDateString!.split('/');
         const convertedDateString = `${parts[1]}/${parts[0]}/${parts[2]}`;
         return convertedDateString
@@ -112,7 +112,7 @@ const DatePicker = (props: DatePickerProps) => {
         setDateObj(newDateObj)
     }
 
-    const actionDateInputBlur = (date: string) => {
+    const actionDateInputBlur = (date: string | undefined) => {
         if(isValidDate(date)) {
             let newDateObj = new Date(convertDateString(date))
             setDateObj(newDateObj)

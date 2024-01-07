@@ -1,7 +1,7 @@
 import React from "react"
-import { ListChatDataProps, ListChatProps } from "../../interface"
+import { ListChatDataProps, ListChatProps } from "@/app/interface"
 import { useDispatch } from "react-redux"
-import { setSelectedChat } from "../../state/app"
+import { setSelectedChat } from "@/app/state/app"
 const ListChat: React.FC<ListChatProps> = (props) => {
     const dispatch = useDispatch()
     const actionSelectChat = (id: number) => {
@@ -97,7 +97,7 @@ const ListChat: React.FC<ListChatProps> = (props) => {
                         </div>
                         { 
                             index != props.data.length - 1 ?
-                            <hr className="chat-separator" />
+                            <hr className="separator" />
                             : 
                             <></>
                         }
