@@ -19,7 +19,7 @@ const Conversation = () => {
     var unreadMessage: boolean = false
     const actionGoToUnread = () => {
         var element: Element | null = document.querySelector("#ConversationContent")
-        element!.scrollTop =  (element!.scrollHeight - 200) - document.querySelector("#NewMessageSection")!.getBoundingClientRect()['y']
+        element!.scrollTop =  (document.querySelector("#NewMessageSection")!.getBoundingClientRect()['y'] - element!.clientHeight) + 100
     }
 
     const getHeightCalculation = () => {
@@ -38,6 +38,14 @@ const Conversation = () => {
         let height = getHeightCalculation()
 
         setContainerContentHeight(height)
+    }
+
+
+    const calculateConversationContainer = () => {
+        if(document.querySelector("#NewMessageSection") === null) return
+        var element = document.querySelector("#ConversationContent")
+        setIsReachUnread(element!.scrollTop + element!.clientHeight > (document.querySelector("#NewMessageSection")!.getBoundingClientRect()['y'] - element!.clientHeight) + 100)
+        setNewMessageNotifPosition()
     }
 
     const setNewMessageNotifPosition = () => {
@@ -61,29 +69,15 @@ const Conversation = () => {
         actionSetContainerHeight()
         setNewMessageNotifPosition()
         if(unreadMessage) {
-            var element = document.querySelector("#ConversationContent")
-
-            if(document.querySelector("#NewMessageSection") === null) {
-                if(element!.scrollTop > document.querySelector("#NewMessageSection")!.getBoundingClientRect()['x'] - window.innerHeight) {
-                    setIsReachUnread(true)
-                }
-                else {
-                    setIsReachUnread(false)
-                }
-            }
-            document.querySelector("#ConversationContent")?.addEventListener("scroll", function() {
-                var element = document.querySelector("#ConversationContent")
-                var scrollPosition = element!.scrollHeight - document.querySelector("#NewMessageSection")!.clientHeight - document.querySelector("#NewMessageSection")!.scrollTop
-                console.log(scrollPosition)
-                if(scrollPosition <= 50) {
-                    setIsReachUnread(true)
-                }
-                else {
-                    setIsReachUnread(false)
-                }
-            })
+            calculateConversationContainer()
         }
-    }, [unreadMessage, isReachUnread])
+    }, [unreadMessage])
+
+    useEffect(() => {
+        document.querySelector("#ConversationContent")?.addEventListener("scroll", function() {
+            calculateConversationContainer()
+        })
+    }, [])
 
     const dispatch = useDispatch()
     const actionCloseConversation = () => {

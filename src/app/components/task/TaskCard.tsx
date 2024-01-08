@@ -76,7 +76,7 @@ const TaskCard: React.FC<TaskCardProps> = (props) => {
                     <DatePicker dateValue={props['date']} />
                 </div>
                 <TaskDescription text={props.description} />
-                <TaskLabel tasks={"taskLabel" in props ? props['taskLabel'] : []} key={props['id']} />
+                <TaskLabel tasks={"taskLabel" in props ? props['taskLabel'] : [] as Array<string>} key={props['id']} />
             </div>
             {
                 props['separator'] ?

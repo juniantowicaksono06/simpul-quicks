@@ -80,7 +80,7 @@ interface TaskCardProps {
     daysLeft?: number,
     taskStatus: "DONE" | "NOT DONE"
     separator: Partial<boolean>,
-    taskLabel: Partial<Array<string>>
+    taskLabel: Array<string>
 }
 
 interface TaskLabelProps {
